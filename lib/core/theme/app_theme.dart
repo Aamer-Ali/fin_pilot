@@ -11,9 +11,11 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData get light => _build(AppColors.lightScheme);
+
   static ThemeData get dark => _build(AppColors.darkScheme);
 
   static ThemeData _build(ColorScheme scheme) {
+
     final textTheme = AppTypography.textTheme(
       onSurface: scheme.onSurface,
       onSurfaceVariant: scheme.onSurfaceVariant,
@@ -23,7 +25,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: scheme.brightness,
       colorScheme: scheme,
-      scaffoldBackgroundColor: scheme.surface,
+      scaffoldBackgroundColor: scheme.inversePrimary,
       textTheme: textTheme,
       fontFamily: textTheme.bodyLarge?.fontFamily,
       splashFactory: InkRipple.splashFactory,
@@ -46,6 +48,13 @@ class AppTheme {
         iconTheme: IconThemeData(color: scheme.onSurface),
       ),
 
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: scheme.inversePrimary,
+        indicatorColor: scheme.inversePrimary
+      ),
+
+
+
       iconTheme: IconThemeData(color: scheme.onSurface, size: 24),
 
       dividerTheme: DividerThemeData(
@@ -63,35 +72,45 @@ class AppTheme {
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: scheme.primary,
-          foregroundColor: scheme.onPrimary,
-          disabledBackgroundColor: scheme.onSurface.withValues(alpha: 0.12),
-          disabledForegroundColor: scheme.onSurface.withValues(alpha: 0.38),
-          minimumSize: const Size.fromHeight(56),
-          elevation: 0,
-          shadowColor: Colors.transparent,
-          shape: const RoundedRectangleBorder(borderRadius: AppRadius.lgRadius),
-          textStyle: AppTypography.bodyLg.copyWith(fontWeight: FontWeight.w600),
-        ).copyWith(
-          overlayColor: WidgetStateProperty.all(
-            scheme.onPrimary.withValues(alpha: 0.08),
-          ),
-        ),
+        style:
+            ElevatedButton.styleFrom(
+              backgroundColor: scheme.primary,
+              foregroundColor: scheme.onPrimary,
+              disabledBackgroundColor: scheme.onSurface.withValues(alpha: 0.12),
+              disabledForegroundColor: scheme.onSurface.withValues(alpha: 0.38),
+              minimumSize: const Size.fromHeight(56),
+              elevation: 0,
+              shadowColor: Colors.transparent,
+              shape: const RoundedRectangleBorder(
+                borderRadius: AppRadius.lgRadius,
+              ),
+              textStyle: AppTypography.bodyLg.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ).copyWith(
+              overlayColor: WidgetStateProperty.all(
+                scheme.onPrimary.withValues(alpha: 0.08),
+              ),
+            ),
       ),
 
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: scheme.secondary,
-          backgroundColor: Colors.transparent,
-          minimumSize: const Size.fromHeight(56),
-          shape: const RoundedRectangleBorder(borderRadius: AppRadius.smRadius),
-          textStyle: AppTypography.bodyLg.copyWith(fontWeight: FontWeight.w600),
-        ).copyWith(
-          overlayColor: WidgetStateProperty.all(
-            scheme.secondary.withValues(alpha: 0.08),
-          ),
-        ),
+        style:
+            TextButton.styleFrom(
+              foregroundColor: scheme.secondary,
+              backgroundColor: Colors.transparent,
+              minimumSize: const Size.fromHeight(56),
+              shape: const RoundedRectangleBorder(
+                borderRadius: AppRadius.smRadius,
+              ),
+              textStyle: AppTypography.bodyLg.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ).copyWith(
+              overlayColor: WidgetStateProperty.all(
+                scheme.secondary.withValues(alpha: 0.08),
+              ),
+            ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
@@ -152,7 +171,9 @@ class AppTheme {
         backgroundColor: scheme.surfaceContainerLowest,
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppRadius.xl),
+          ),
         ),
       ),
 
@@ -161,6 +182,7 @@ class AppTheme {
         textColor: scheme.onSurface,
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.smRadius),
       ),
+
     );
   }
 }
