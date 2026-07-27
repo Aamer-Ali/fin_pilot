@@ -1,16 +1,200 @@
-import 'package:fin_pilot/core/routing/app_router.dart';
+import 'package:fin_pilot/core/di/injector.dart';
+import 'package:fin_pilot/core/theme/app_radius.dart';
+import 'package:fin_pilot/core/theme/app_spacing.dart';
+import 'package:fin_pilot/core/theme/app_typography.dart';
+import 'package:fin_pilot/core/utils/currency_formatter.dart';
+import 'package:fin_pilot/core/utils/date_formatter.dart';
+import 'package:fin_pilot/features/dashboard/domain/entities/dashboard_summary.dart';
+import 'package:fin_pilot/features/dashboard/domain/entities/recent_activity.dart';
+import 'package:fin_pilot/features/dashboard/presentation/cubit/dashboard_cubit.dart';
+import 'package:fin_pilot/features/dashboard/presentation/cubit/dashboard_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// Placeholder for the Home tab. Real dashboard content (balance, spending
-/// mix, recent activity — CLAUDE.md §4 `dashboard`) lands in a later step.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<DashboardCubit>()..loadDashboard(),
+      child: const _HomeView(),
+    );
+  }
+}
+
+class _HomeView extends StatelessWidget {
+  const _HomeView();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Home', style: Theme.of(context).textTheme.headlineMedium),
+      appBar: AppBar(
+        title: Text("FinPilot"),
+        centerTitle: false,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: AppSpacing.md),
+            child: Icon(Icons.account_circle_outlined),
+          ),
+        ],
+      ),
+      body: BlocBuilder<DashboardCubit, DashboardState>(
+        builder: (context, state) {
+          return switch (state) {
+            DashboardInitial() || DashboardLoading() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            DashboardError(:final message) => Center(
+              child: Text(message, style: AppTypography.bodyLg),
+            ),
+            DashboardLoaded(:final summary) => _DashboardContent(
+              summary: summary,
+            ),
+          };
+        },
+      ),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () => {},
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class _DashboardContent extends StatelessWidget {
+  const _DashboardContent({required this.summary});
+
+  final DashboardSummary summary;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      child: Container(
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: AppSpacing.md,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Total Balance".toUpperCase(), style: AppTypography.labelMd),
+                Text(
+                  formatCurrency(summary.totalBalance),
+                  style: AppTypography.headlineLg,
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Monthly Spending".toUpperCase(),
+                  style: AppTypography.labelMd,
+                ),
+                Text(
+                  formatCurrency(summary.monthlySpending),
+                  style: AppTypography.headlineLgMobile,
+                ),
+              ],
+            ),
+            // Spending Mix donut — data is wired (summary.spendingMix,
+            // summary.outflowPercentage), chart rendering comes next.
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width / 1.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
+              child: Center(
+                child: Text(
+                  "Pie Chart will come here\n"
+                  "(${summary.spendingMix.length} categories, "
+                  "${summary.outflowPercentage.toStringAsFixed(0)}% outflow)",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            // Analytics Pulse bar trend — data is wired (summary.weeklyTrend,
+            // summary.insightText, summary.spendingChangePercent), chart
+            // rendering comes next.
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width / 1.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
+              child: Center(
+                child: Text(
+                  "Bar Chart will come here\n"
+                  "(${summary.weeklyTrend.length} points, "
+                  "${summary.spendingChangePercent.toStringAsFixed(0)}% change)",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Recent Activity", style: AppTypography.bodyLg),
+                InkResponse(
+                  onTap: () {},
+                  child: Row(
+                    spacing: 8,
+                    children: [
+                      Text("View All", style: AppTypography.labelMd),
+                      Icon(Icons.chevron_right, size: AppSpacing.md),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: summary.recentActivities.length,
+              itemBuilder: (context, index) {
+                final activity = summary.recentActivities[index];
+                return _RecentActivityTile(activity: activity);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RecentActivityTile extends StatelessWidget {
+  const _RecentActivityTile({required this.activity});
+
+  final RecentActivity activity;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final amountColor = activity.isIncome
+        ? colorScheme.onTertiaryContainer
+        : colorScheme.onSurfaceVariant;
+    final sign = activity.isIncome ? '+' : '-';
+
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        activity.title,
+        style: AppTypography.bodyLg.copyWith(color: colorScheme.onSurface),
+      ),
+      subtitle: Text(
+        "${activity.description} · ${formatRelativeDate(activity.date)}",
+        style: AppTypography.bodySm.copyWith(color: colorScheme.onSurfaceVariant),
+      ),
+      trailing: Text(
+        "$sign\$${formatCurrency(activity.amount)}",
+        style: AppTypography.dataMono.copyWith(color: amountColor),
       ),
     );
   }

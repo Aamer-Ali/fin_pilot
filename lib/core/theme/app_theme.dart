@@ -37,7 +37,7 @@ class AppTheme {
       ],
 
       appBarTheme: AppBarTheme(
-        backgroundColor: scheme.surface,
+        backgroundColor: scheme.inversePrimary,
         foregroundColor: scheme.onSurface,
         elevation: 0,
         scrolledUnderElevation: 0,
@@ -183,6 +183,10 @@ class AppTheme {
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.smRadius),
       ),
 
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        foregroundColor: scheme.inversePrimary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+      )
     );
   }
 }
