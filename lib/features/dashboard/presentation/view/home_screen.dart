@@ -8,6 +8,7 @@ import 'package:fin_pilot/features/dashboard/domain/entities/dashboard_summary.d
 import 'package:fin_pilot/features/dashboard/domain/entities/recent_activity.dart';
 import 'package:fin_pilot/features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'package:fin_pilot/features/dashboard/presentation/cubit/dashboard_state.dart';
+import 'package:fin_pilot/features/dashboard/presentation/widgets/spending_mix_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,22 +101,26 @@ class _DashboardContent extends StatelessWidget {
                 ),
               ],
             ),
-            // Spending Mix donut — data is wired (summary.spendingMix,
-            // summary.outflowPercentage), chart rendering comes next.
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.width / 1.5,
+              padding: EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(AppRadius.lg),
               ),
-              child: Center(
-                child: Text(
-                  "Pie Chart will come here\n"
-                  "(${summary.spendingMix.length} categories, "
-                  "${summary.outflowPercentage.toStringAsFixed(0)}% outflow)",
-                  textAlign: TextAlign.center,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Spending Mix", style: AppTypography.headlineMd),
+                  SizedBox(height: AppSpacing.md),
+                  Expanded(
+                    child: SpendingMixChart(
+                      spendingMix: summary.spendingMix,
+                      outflowPercentage: summary.outflowPercentage,
+                    ),
+                  ),
+                ],
               ),
             ),
             // Analytics Pulse bar trend — data is wired (summary.weeklyTrend,
