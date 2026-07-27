@@ -8,6 +8,7 @@ import 'package:fin_pilot/features/dashboard/domain/entities/dashboard_summary.d
 import 'package:fin_pilot/features/dashboard/domain/entities/recent_activity.dart';
 import 'package:fin_pilot/features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'package:fin_pilot/features/dashboard/presentation/cubit/dashboard_state.dart';
+import 'package:fin_pilot/features/dashboard/presentation/widgets/analytics_pulse_chart.dart';
 import 'package:fin_pilot/features/dashboard/presentation/widgets/spending_mix_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,7 +82,10 @@ class _DashboardContent extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Total Balance".toUpperCase(), style: AppTypography.labelMd),
+                Text(
+                  "Total Balance".toUpperCase(),
+                  style: AppTypography.labelMd,
+                ),
                 Text(
                   formatCurrency(summary.totalBalance),
                   style: AppTypography.headlineLg,
@@ -123,23 +127,32 @@ class _DashboardContent extends StatelessWidget {
                 ],
               ),
             ),
-            // Analytics Pulse bar trend — data is wired (summary.weeklyTrend,
-            // summary.insightText, summary.spendingChangePercent), chart
-            // rendering comes next.
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.width / 1.5,
+              padding: EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(AppRadius.lg),
               ),
-              child: Center(
-                child: Text(
-                  "Bar Chart will come here\n"
-                  "(${summary.weeklyTrend.length} points, "
-                  "${summary.spendingChangePercent.toStringAsFixed(0)}% change)",
-                  textAlign: TextAlign.center,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Analytics Pulse", style: AppTypography.headlineMd),
+                  SizedBox(height: AppSpacing.xs),
+                  Text(
+                    summary.insightText,
+                    style: AppTypography.bodySm.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  SizedBox(height: AppSpacing.md),
+                  Expanded(
+                    child: AnalyticsPulseChart(
+                      weeklyTrend: summary.weeklyTrend,
+                    ),
+                  ),
+                ],
               ),
             ),
             Row(
@@ -195,7 +208,9 @@ class _RecentActivityTile extends StatelessWidget {
       ),
       subtitle: Text(
         "${activity.description} · ${formatRelativeDate(activity.date)}",
-        style: AppTypography.bodySm.copyWith(color: colorScheme.onSurfaceVariant),
+        style: AppTypography.bodySm.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
       ),
       trailing: Text(
         "$sign\$${formatCurrency(activity.amount)}",
