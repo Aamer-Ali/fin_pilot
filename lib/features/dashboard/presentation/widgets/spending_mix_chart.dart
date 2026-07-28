@@ -58,6 +58,7 @@ class SpendingMixChart extends StatelessWidget {
               PieChart(
                 PieChartData(
                   sectionsSpace: 3,
+                  pieTouchData: PieTouchData(enabled: true),
                   sections: [
                     for (var i = 0; i < spendingMix.length; i++)
                       PieChartSectionData(

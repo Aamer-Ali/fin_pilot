@@ -487,3 +487,4 @@ class ExpenseCubit extends Cubit<ExpenseState> {
 - Match the design tokens in Section 2 exactly — no ad hoc hex colors or font sizes in widgets
 - All financial figures use `dataMono` style with tabular figures
 - Write at least minimal `bloc_test` coverage for each Cubit/Bloc before moving to the next feature
+- Token efficiency is a hard requirement — see [`docs/AGENT_EFFICIENCY_RULES.md`](./docs/AGENT_EFFICIENCY_RULES.md) before running any Bash command
