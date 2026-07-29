@@ -18,7 +18,7 @@ class AnalyticsPulseChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    if (weeklyTrend.isEmpty) {
+    if (weeklyTrend.isEmpty || weeklyTrend.every((point) => point.amount == 0)) {
       return Center(
         child: Text(
           "No trend data yet",

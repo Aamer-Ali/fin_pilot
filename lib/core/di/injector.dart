@@ -23,7 +23,7 @@ void setupInjector() {
 
 void _initDashboard() {
   getIt.registerLazySingleton<DashboardLocalDataSource>(
-    () => DashboardDummyDataSource(),
+    () => DashboardHiveDataSource(getIt()),
   );
   getIt.registerLazySingleton<DashboardRepository>(
     () => DashboardRepositoryImpl(getIt()),

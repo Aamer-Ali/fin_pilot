@@ -17,13 +17,13 @@ class ExpenseDatePicker extends StatefulWidget {
 }
 
 class _ExpenseDatePickerState extends State<ExpenseDatePicker> {
-  late DateTime _selectedDate = widget.initialDate ?? DateTime.now();
+  late DateTime? _selectedDate = widget.initialDate;
 
   Future<void> _pickDate() async {
     final now = DateTime.now();
     final picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: _selectedDate ?? now,
       firstDate: DateTime(now.year - 5),
       lastDate: now,
     );
@@ -64,9 +64,13 @@ class _ExpenseDatePickerState extends State<ExpenseDatePicker> {
                   ),
                 ),
                 Text(
-                  formatDateLabel(_selectedDate),
+                  _selectedDate == null
+                      ? 'Select date'
+                      : formatDateLabel(_selectedDate!),
                   style: AppTypography.bodyLg.copyWith(
-                    color: colorScheme.onSurface,
+                    color: _selectedDate == null
+                        ? colorScheme.outline
+                        : colorScheme.onSurface,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

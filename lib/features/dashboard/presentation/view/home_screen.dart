@@ -58,7 +58,12 @@ class _HomeView extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () => context.push('/add-expense'),
+        onPressed: () async {
+          final expenseAdded = await context.push<bool>('/add-expense');
+          if (expenseAdded == true && context.mounted) {
+            context.read<DashboardCubit>().loadDashboard();
+          }
+        },
         child: Icon(Icons.add),
       ),
     );
@@ -80,19 +85,24 @@ class _DashboardContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: AppSpacing.md,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Total Balance".toUpperCase(),
-                  style: AppTypography.labelMd,
-                ),
-                Text(
-                  formatCurrency(summary.totalBalance),
-                  style: AppTypography.headlineLg,
-                ),
-              ],
-            ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       "Total Balance".toUpperCase(),
+            //       style: AppTypography.labelMd,
+            //     ),
+            //     Row(
+            //       children: [
+            //         Icon(Icons.currency_rupee),
+            //         Text(
+            //           formatCurrency(summary.totalBalance),
+            //           style: AppTypography.headlineLg,
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -100,15 +110,20 @@ class _DashboardContent extends StatelessWidget {
                   "Monthly Spending".toUpperCase(),
                   style: AppTypography.labelMd,
                 ),
-                Text(
-                  formatCurrency(summary.monthlySpending),
-                  style: AppTypography.headlineLgMobile,
+                Row(
+                  children: [
+                    Icon(Icons.currency_rupee),
+                    Text(
+                      formatCurrency(summary.monthlySpending),
+                      style: AppTypography.headlineLgMobile,
+                    ),
+                  ],
                 ),
               ],
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 1.5,
+              height: MediaQuery.of(context).size.width / 1.2,
               padding: EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
@@ -118,7 +133,7 @@ class _DashboardContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Spending Mix", style: AppTypography.headlineMd),
-                  SizedBox(height: AppSpacing.md),
+                  SizedBox(height: AppSpacing.xl),
                   Expanded(
                     child: SpendingMixChart(
                       spendingMix: summary.spendingMix,
@@ -130,7 +145,7 @@ class _DashboardContent extends StatelessWidget {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 1.5,
+              height: MediaQuery.of(context).size.width / 1.2,
               padding: EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
@@ -175,7 +190,9 @@ class _DashboardContent extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: summary.recentActivities.length,
+              itemCount: summary.recentActivities.length > 4
+                  ? 4
+                  : summary.recentActivities.length,
               itemBuilder: (context, index) {
                 final activity = summary.recentActivities[index];
                 return _RecentActivityTile(activity: activity);
@@ -213,9 +230,19 @@ class _RecentActivityTile extends StatelessWidget {
           color: colorScheme.onSurfaceVariant,
         ),
       ),
-      trailing: Text(
-        "$sign\$${formatCurrency(activity.amount)}",
-        style: AppTypography.dataMono.copyWith(color: amountColor),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            sign,
+            style: AppTypography.dataMono.copyWith(color: amountColor),
+          ),
+          Icon(Icons.currency_rupee, size: 16),
+          Text(
+            formatCurrency(activity.amount),
+            style: AppTypography.dataMono.copyWith(color: amountColor),
+          ),
+        ],
       ),
     );
   }

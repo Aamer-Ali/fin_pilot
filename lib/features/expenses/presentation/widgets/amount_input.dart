@@ -28,7 +28,8 @@ class AmountInput extends StatefulWidget {
 
 class _AmountInputState extends State<AmountInput> {
   late final TextEditingController _controller =
-      widget.controller ?? TextEditingController(text: _format(widget.initialValue));
+      widget.controller ??
+      TextEditingController(text: _format(widget.initialValue));
 
   String _format(double value) => value.toStringAsFixed(2);
 
@@ -61,14 +62,11 @@ class _AmountInputState extends State<AmountInput> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              r'$',
-              style: AppTypography.displayLg.copyWith(
-                color: colorScheme.outline,
-              ),
-            ),
+            Icon(Icons.currency_rupee, size: 45, color: colorScheme.outline),
             ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width/1.4),
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width / 1.4,
+              ),
               child: TextField(
                 controller: _controller,
                 textAlign: TextAlign.center,
@@ -139,7 +137,11 @@ class _StepperButton extends StatelessWidget {
           horizontal: AppSpacing.sm,
           vertical: AppSpacing.xs,
         ),
-        child: Icon(icon, size: 20, color: Theme.of(context).colorScheme.outline),
+        child: Icon(
+          icon,
+          size: 20,
+          color: Theme.of(context).colorScheme.outline,
+        ),
       ),
     );
   }

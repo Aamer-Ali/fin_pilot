@@ -55,8 +55,10 @@ class SpendingMixChart extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
+
               PieChart(
                 PieChartData(
+                  centerSpaceRadius: 50,
                   sectionsSpace: 3,
                   pieTouchData: PieTouchData(enabled: true),
                   sections: [
@@ -91,7 +93,7 @@ class SpendingMixChart extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: AppSpacing.md),
+        SizedBox(height: AppSpacing.xl),
         Wrap(
           alignment: WrapAlignment.center,
           spacing: AppSpacing.md,

@@ -35,6 +35,8 @@ void main() {
 
       cubit.amountChanged(25.5);
       cubit.descriptionChanged('Coffee');
+      cubit.categoryChanged('Groceries');
+      cubit.dateChanged(DateTime(2026, 7, 29));
       await cubit.submit();
 
       expect(cubit.state, const AddExpenseState.success());

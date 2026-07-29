@@ -23,6 +23,14 @@ void main() {
     createdAt: date,
   );
 
+  void fillValidForm(AddExpenseCubit cubit) {
+    cubit
+      ..amountChanged(42)
+      ..descriptionChanged('Coffee')
+      ..categoryChanged('Groceries')
+      ..dateChanged(date);
+  }
+
   setUpAll(() {
     registerFallbackValue(
       AddExpenseParams(
@@ -44,13 +52,66 @@ void main() {
     expect(buildCubit().state, const AddExpenseState.initial());
   });
 
+  test('isValid starts false', () {
+    expect(buildCubit().isValid.value, isFalse);
+  });
+
+  test('isValid becomes true once amount, description, category, and date are all set', () {
+    final cubit = buildCubit();
+    fillValidForm(cubit);
+    expect(cubit.isValid.value, isTrue);
+  });
+
+  test('isValid stays false when any single field is missing', () {
+    final cubit = buildCubit();
+    cubit
+      ..amountChanged(42)
+      ..descriptionChanged('Coffee')
+      ..categoryChanged('Groceries');
+    // date never set
+    expect(cubit.isValid.value, isFalse);
+  });
+
+  test('isValid stays false when amount is zero', () {
+    final cubit = buildCubit();
+    cubit
+      ..amountChanged(0)
+      ..descriptionChanged('Coffee')
+      ..categoryChanged('Groceries')
+      ..dateChanged(date);
+    expect(cubit.isValid.value, isFalse);
+  });
+
+  test('isValid stays false when description is blank', () {
+    final cubit = buildCubit();
+    cubit
+      ..amountChanged(42)
+      ..descriptionChanged('   ')
+      ..categoryChanged('Groceries')
+      ..dateChanged(date);
+    expect(cubit.isValid.value, isFalse);
+  });
+
+  blocTest<AddExpenseCubit, AddExpenseState>(
+    'submit does nothing and never calls the use case while the form is invalid',
+    build: buildCubit,
+    act: (cubit) => cubit.submit(),
+    expect: () => const <AddExpenseState>[],
+    verify: (_) {
+      verifyNever(() => addExpense(any()));
+    },
+  );
+
   blocTest<AddExpenseCubit, AddExpenseState>(
     'submit emits [submitting, success] when the use case succeeds',
     setUp: () {
       when(() => addExpense(any())).thenAnswer((_) async => Right(expense));
     },
     build: buildCubit,
-    act: (cubit) => cubit.submit(),
+    act: (cubit) {
+      fillValidForm(cubit);
+      cubit.submit();
+    },
     expect: () => const [
       AddExpenseState.submitting(),
       AddExpenseState.success(),
@@ -65,7 +126,10 @@ void main() {
       );
     },
     build: buildCubit,
-    act: (cubit) => cubit.submit(),
+    act: (cubit) {
+      fillValidForm(cubit);
+      cubit.submit();
+    },
     expect: () => const [
       AddExpenseState.submitting(),
       AddExpenseState.failure('Could not save expense'),
@@ -81,6 +145,7 @@ void main() {
     act: (cubit) => cubit
       ..amountChanged(42)
       ..descriptionChanged('Coffee')
+      ..categoryChanged('Groceries')
       ..dateChanged(date)
       ..receiptPicked('/tmp/receipt.jpg')
       ..submit(),
@@ -90,7 +155,7 @@ void main() {
           AddExpenseParams(
             amount: 42,
             description: 'Coffee',
-            category: 'General',
+            category: 'Groceries',
             date: date,
             receiptLocalPath: '/tmp/receipt.jpg',
           ),
