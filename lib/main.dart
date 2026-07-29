@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import 'app.dart';
 import 'core/di/injector.dart';
+import 'features/expenses/data/models/expense_hive_model.dart';
+import 'hive_registrar.g.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Opens Hive's on-device storage and teaches it how to read/write our
+  // model types (registerAdapters() is generated — see hive_registrar.g.dart
+  // — and picks up every @HiveType class automatically).
+  await Hive.initFlutter();
+  Hive.registerAdapters();
+  await Hive.openBox<ExpenseHiveModel>('expenses');
+
   setupInjector();
   runApp(const App());
 }
