@@ -39,24 +39,24 @@ class LogExpenseButton extends StatelessWidget {
           ),
         ),
         SizedBox(height: AppSpacing.md),
-        Text.rich(
-          TextSpan(
-            style: AppTypography.bodySm.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
-            children: [
-              const TextSpan(text: 'This will be added to your '),
-              TextSpan(
-                text: '$month Budget',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-              const TextSpan(text: '.'),
-            ],
-          ),
-        ),
+        // Text.rich(
+        //   TextSpan(
+        //     style: AppTypography.bodySm.copyWith(
+        //       color: colorScheme.onSurfaceVariant,
+        //     ),
+        //     children: [
+        //       const TextSpan(text: 'This will be added to your '),
+        //       TextSpan(
+        //         text: '$month Budget',
+        //         style: TextStyle(
+        //           fontWeight: FontWeight.w600,
+        //           color: colorScheme.onSurface,
+        //         ),
+        //       ),
+        //       const TextSpan(text: '.'),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
