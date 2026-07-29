@@ -15,3 +15,15 @@ String formatRelativeDate(DateTime date, {DateTime? now}) {
   ];
   return '${months[date.month - 1]} ${date.day}';
 }
+
+/// Formats a [DateTime] for a date picker field: "Today, Oct 24" for
+/// today, otherwise "Oct 20".
+String formatDateLabel(DateTime date, {DateTime? now}) {
+  final relative = formatRelativeDate(date, now: now);
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
+  final monthDay = '${months[date.month - 1]} ${date.day}';
+  return relative == 'Today' ? '$relative, $monthDay' : monthDay;
+}

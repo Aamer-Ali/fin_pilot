@@ -33,11 +33,17 @@ class AppTypography {
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle get bodyLg =>
-      GoogleFonts.inter(fontSize: 16, height: 24 / 16, fontWeight: FontWeight.w400);
+  static TextStyle get bodyLg => GoogleFonts.inter(
+    fontSize: 16,
+    height: 24 / 16,
+    fontWeight: FontWeight.w400,
+  );
 
-  static TextStyle get bodySm =>
-      GoogleFonts.inter(fontSize: 14, height: 20 / 14, fontWeight: FontWeight.w400);
+  static TextStyle get bodySm => GoogleFonts.inter(
+    fontSize: 14,
+    height: 20 / 14,
+    fontWeight: FontWeight.w400,
+  );
 
   /// Field labels / table headers / category tags. Render the string in
   /// UPPERCASE at the call site — this style does not transform case.
@@ -53,6 +59,19 @@ class AppTypography {
     fontSize: 16,
     height: 24 / 16,
     fontWeight: FontWeight.w600,
+    fontFeatures: const [FontFeature.tabularFigures()],
+  );
+
+  static TextStyle get appBarTitle => GoogleFonts.inter(
+    fontSize: 16,
+    height: 24 / 16,
+    fontWeight: FontWeight.w600,
+    fontFeatures: const [FontFeature.tabularFigures()],
+  );
+
+  static TextStyle get appBarBoldTitle => GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
     fontFeatures: const [FontFeature.tabularFigures()],
   );
 

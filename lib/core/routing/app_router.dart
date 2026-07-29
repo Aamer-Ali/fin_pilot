@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/dashboard/presentation/view/home_screen.dart';
+import '../../features/expenses/presentation/view/add_expense_screen.dart';
 import '../../features/insights/presentation/view/insights_screen.dart';
 import '../../features/profile/presentation/view/profile_screen.dart';
 import '../../features/subscriptions/presentation/view/subscriptions_screen.dart';
@@ -58,6 +59,10 @@ final appRouter = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/add-expense',
+      builder: (context, state) => const AddExpenseScreen(),
     ),
     GoRoute(path: '/settings', builder: (context, state) => const Text("asdf")),
     GoRoute(

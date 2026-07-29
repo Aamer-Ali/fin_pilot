@@ -15,7 +15,6 @@ class AppTheme {
   static ThemeData get dark => _build(AppColors.darkScheme);
 
   static ThemeData _build(ColorScheme scheme) {
-
     final textTheme = AppTypography.textTheme(
       onSurface: scheme.onSurface,
       onSurfaceVariant: scheme.onSurfaceVariant,
@@ -50,10 +49,8 @@ class AppTheme {
 
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.inversePrimary,
-        indicatorColor: scheme.inversePrimary
+        indicatorColor: scheme.inversePrimary,
       ),
-
-
 
       iconTheme: IconThemeData(color: scheme.onSurface, size: 24),
 
@@ -185,8 +182,8 @@ class AppTheme {
 
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         foregroundColor: scheme.inversePrimary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
-      )
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
     );
   }
 }

@@ -12,6 +12,7 @@ import 'package:fin_pilot/features/dashboard/presentation/widgets/analytics_puls
 import 'package:fin_pilot/features/dashboard/presentation/widgets/spending_mix_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,7 +58,7 @@ class _HomeView extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () => {},
+        onPressed: () => context.push('/add-expense'),
         child: Icon(Icons.add),
       ),
     );
