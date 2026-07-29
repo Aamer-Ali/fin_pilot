@@ -11,149 +11,51 @@ part of 'dashboard_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$DashboardState {
 
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is DashboardState);
-  }
 
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  String toString() {
-    return 'DashboardState()';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DashboardState()';
+}
 
 
 }
 
 /// @nodoc
-class $DashboardStateCopyWith<$Res> {
-  $DashboardStateCopyWith(DashboardState _, $Res Function(DashboardState) __);
+class $DashboardStateCopyWith<$Res>  {
+$DashboardStateCopyWith(DashboardState _, $Res Function(DashboardState) __);
 }
 
 
 /// Adds pattern-matching-related methods to [DashboardState].
 extension DashboardStatePatterns on DashboardState {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs TResult maybeMap
-
-  <
-
-  TResult
-
-  extends
-
-  Object?
-
-  >
-
-  (
-
-  {
-
-  TResult
-
-  Function
-
-  (
-
-  DashboardInitial
-
-  value
-
-  )
-
-  ?
-
-  initial
-
-  ,
-
-  TResult
-
-  Function
-
-  (
-
-  DashboardLoading
-
-  value
-
-  )
-
-  ?
-
-  loading
-
-  ,
-
-  TResult
-
-  Function
-
-  (
-
-  DashboardLoaded
-
-  value
-
-  )
-
-  ?
-
-  loaded
-
-  ,
-
-  TResult
-
-  Function
-
-  (
-
-  DashboardError
-
-  value
-
-  )
-
-  ?
-
-  error
-
-  ,
-
-  required
-
-  TResult
-
-  orElse
-
-  (
-
-  )
-
-  ,
-}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( DashboardInitial value)?  initial,TResult Function( DashboardLoading value)?  loading,TResult Function( DashboardLoaded value)?  loaded,TResult Function( DashboardError value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case DashboardInitial() when initial != null:
@@ -161,7 +63,7 @@ return initial(_that);case DashboardLoading() when loading != null:
 return loading(_that);case DashboardLoaded() when loaded != null:
 return loaded(_that);case DashboardError() when error != null:
 return error(_that);case _:
-return orElse();
+  return orElse();
 
 }
 }
@@ -178,22 +80,15 @@ return orElse();
 /// }
 /// ```
 
-@optionalTypeArgs
-TResult map<TResult extends Object?>(
-    {required TResult Function( DashboardInitial value) initial, required TResult Function( DashboardLoading value) loading, required TResult Function( DashboardLoaded value) loaded, required TResult Function( DashboardError value) error,}) {
-  final _that = this;
-  switch (_that) {
-    case DashboardInitial():
-      return initial(_that);
-    case DashboardLoading():
-      return loading(_that);
-    case DashboardLoaded():
-      return loaded(_that);
-    case DashboardError():
-      return error(_that);
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( DashboardInitial value)  initial,required TResult Function( DashboardLoading value)  loading,required TResult Function( DashboardLoaded value)  loaded,required TResult Function( DashboardError value)  error,}){
+final _that = this;
+switch (_that) {
+case DashboardInitial():
+return initial(_that);case DashboardLoading():
+return loading(_that);case DashboardLoaded():
+return loaded(_that);case DashboardError():
+return error(_that);}
 }
-
 /// A variant of `map` that fallback to returning `null`.
 ///
 /// It is equivalent to doing:
@@ -206,24 +101,18 @@ TResult map<TResult extends Object?>(
 /// }
 /// ```
 
-@optionalTypeArgs
-TResult? mapOrNull<TResult extends Object?>(
-    {TResult? Function( DashboardInitial value)? initial, TResult? Function( DashboardLoading value)? loading, TResult? Function( DashboardLoaded value)? loaded, TResult? Function( DashboardError value)? error,}) {
-  final _that = this;
-  switch (_that) {
-    case DashboardInitial() when initial != null:
-      return initial(_that);
-    case DashboardLoading() when loading != null:
-      return loading(_that);
-    case DashboardLoaded() when loaded != null:
-      return loaded(_that);
-    case DashboardError() when error != null:
-      return error(_that);
-    case _:
-      return null;
-  }
-}
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( DashboardInitial value)?  initial,TResult? Function( DashboardLoading value)?  loading,TResult? Function( DashboardLoaded value)?  loaded,TResult? Function( DashboardError value)?  error,}){
+final _that = this;
+switch (_that) {
+case DashboardInitial() when initial != null:
+return initial(_that);case DashboardLoading() when loading != null:
+return loading(_that);case DashboardLoaded() when loaded != null:
+return loaded(_that);case DashboardError() when error != null:
+return error(_that);case _:
+  return null;
 
+}
+}
 /// A variant of `when` that fallback to an `orElse` callback.
 ///
 /// It is equivalent to doing:
@@ -236,52 +125,14 @@ TResult? mapOrNull<TResult extends Object?>(
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen
-<
-TResult extends Object?>(
-{
-TResult
-Function
-(
-)
-?
-initial
-,
-TResult
-Function
-(
-)
-?
-loading
-,
-TResult
-Function
-(
-DashboardSummary
-summary
-)
-?
-loaded
-,
-TResult
-Function
-(
-String
-message
-)
-?
-error
-,
-required
-TResult
-orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( DashboardSummary summary)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case DashboardInitial() when initial != null:
 return initial();case DashboardLoading() when loading != null:
 return loading();case DashboardLoaded() when loaded != null:
 return loaded(_that.summary);case DashboardError() when error != null:
 return error(_that.message);case _:
-return orElse();
+  return orElse();
 
 }
 }
@@ -298,7 +149,7 @@ return orElse();
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function() initial,required TResult Function() loading,required TResult Function( DashboardSummary summary) loaded,required TResult Function( String message) error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( DashboardSummary summary)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case DashboardInitial():
 return initial();case DashboardLoading():
@@ -318,14 +169,14 @@ return error(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()? initial,TResult? Function()? loading,TResult? Function( DashboardSummary summary)? loaded,TResult? Function( String message)? error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( DashboardSummary summary)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case DashboardInitial() when initial != null:
 return initial();case DashboardLoading() when loading != null:
 return loading();case DashboardLoaded() when loaded != null:
 return loaded(_that.summary);case DashboardError() when error != null:
 return error(_that.message);case _:
-return null;
+  return null;
 
 }
 }
@@ -336,12 +187,17 @@ return null;
 
 
 class DashboardInitial implements DashboardState {
-const DashboardInitial();
+  const DashboardInitial();
+  
+
+
+
+
 
 
 @override
 bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardInitial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardInitial);
 }
 
 
@@ -350,23 +206,30 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-return 'DashboardState.initial()';
+  return 'DashboardState.initial()';
 }
 
 
 }
+
+
 
 
 /// @nodoc
 
 
 class DashboardLoading implements DashboardState {
-const DashboardLoading();
+  const DashboardLoading();
+  
+
+
+
+
 
 
 @override
 bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardLoading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardLoading);
 }
 
 
@@ -375,21 +238,23 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-return 'DashboardState.loading()';
+  return 'DashboardState.loading()';
 }
 
 
 }
+
+
 
 
 /// @nodoc
 
 
 class DashboardLoaded implements DashboardState {
-const DashboardLoaded(this.summary);
+  const DashboardLoaded(this.summary);
+  
 
-
-final DashboardSummary summary;
+ final  DashboardSummary summary;
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
@@ -398,9 +263,10 @@ final DashboardSummary summary;
 $DashboardLoadedCopyWith<DashboardLoaded> get copyWith => _$DashboardLoadedCopyWithImpl<DashboardLoaded>(this, _$identity);
 
 
+
 @override
 bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardLoaded&&(identical(other.summary, summary) || other.summary == summary));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardLoaded&&(identical(other.summary, summary) || other.summary == summary));
 }
 
 
@@ -409,7 +275,7 @@ int get hashCode => Object.hash(runtimeType,summary);
 
 @override
 String toString() {
-return 'DashboardState.loaded(summary: $summary)';
+  return 'DashboardState.loaded(summary: $summary)';
 }
 
 
@@ -417,29 +283,31 @@ return 'DashboardState.loaded(summary: $summary)';
 
 /// @nodoc
 abstract mixin class $DashboardLoadedCopyWith<$Res> implements $DashboardStateCopyWith<$Res> {
-factory $DashboardLoadedCopyWith(DashboardLoaded value, $Res Function(DashboardLoaded) _then) = _$DashboardLoadedCopyWithImpl;
+  factory $DashboardLoadedCopyWith(DashboardLoaded value, $Res Function(DashboardLoaded) _then) = _$DashboardLoadedCopyWithImpl;
 @useResult
 $Res call({
-DashboardSummary summary
+ DashboardSummary summary
 });
+
+
 
 
 }
 /// @nodoc
 class _$DashboardLoadedCopyWithImpl<$Res>
-implements $DashboardLoadedCopyWith<$Res> {
-_$DashboardLoadedCopyWithImpl(this._self, this._then);
+    implements $DashboardLoadedCopyWith<$Res> {
+  _$DashboardLoadedCopyWithImpl(this._self, this._then);
 
-final DashboardLoaded _self;
-final $Res Function(DashboardLoaded) _then;
+  final DashboardLoaded _self;
+  final $Res Function(DashboardLoaded) _then;
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? summary = null,}) {
-return _then(DashboardLoaded(
+  return _then(DashboardLoaded(
 null == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
 as DashboardSummary,
-));
+  ));
 }
 
 
@@ -449,10 +317,10 @@ as DashboardSummary,
 
 
 class DashboardError implements DashboardState {
-const DashboardError(this.message);
+  const DashboardError(this.message);
+  
 
-
-final String message;
+ final  String message;
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
@@ -461,9 +329,10 @@ final String message;
 $DashboardErrorCopyWith<DashboardError> get copyWith => _$DashboardErrorCopyWithImpl<DashboardError>(this, _$identity);
 
 
+
 @override
 bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardError&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardError&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -472,7 +341,7 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-return 'DashboardState.error(message: $message)';
+  return 'DashboardState.error(message: $message)';
 }
 
 
@@ -480,29 +349,31 @@ return 'DashboardState.error(message: $message)';
 
 /// @nodoc
 abstract mixin class $DashboardErrorCopyWith<$Res> implements $DashboardStateCopyWith<$Res> {
-factory $DashboardErrorCopyWith(DashboardError value, $Res Function(DashboardError) _then) = _$DashboardErrorCopyWithImpl;
+  factory $DashboardErrorCopyWith(DashboardError value, $Res Function(DashboardError) _then) = _$DashboardErrorCopyWithImpl;
 @useResult
 $Res call({
-String message
+ String message
 });
+
+
 
 
 }
 /// @nodoc
 class _$DashboardErrorCopyWithImpl<$Res>
-implements $DashboardErrorCopyWith<$Res> {
-_$DashboardErrorCopyWithImpl(this._self, this._then);
+    implements $DashboardErrorCopyWith<$Res> {
+  _$DashboardErrorCopyWithImpl(this._self, this._then);
 
-final DashboardError _self;
-final $Res Function(DashboardError) _then;
+  final DashboardError _self;
+  final $Res Function(DashboardError) _then;
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-return _then(DashboardError(
+  return _then(DashboardError(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
-));
+  ));
 }
 
 

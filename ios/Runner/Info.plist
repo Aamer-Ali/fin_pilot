@@ -26,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>FinPilot uses the camera to attach a photo of your receipt to an expense.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FinPilot needs access to your photos to attach a receipt image to an expense.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
