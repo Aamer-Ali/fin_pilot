@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
-    types: [ closed ]
+    branches: [main, master]
+    types: [closed]
 
 env:
   FLUTTER_VERSION: "3.44.7"
@@ -62,6 +62,8 @@ jobs:
           path: build/app/outputs/flutter-apk/app-prod-release.apk
       - uses: dawidd6/action-send-mail@v3
         with:
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: FinPilot Android build ${{ github.sha }}
@@ -89,6 +91,8 @@ jobs:
           path: build/ios/ipa/*.ipa
       - uses: dawidd6/action-send-mail@v3
         with:
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: FinPilot iOS build ${{ github.sha }}
