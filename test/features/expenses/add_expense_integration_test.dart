@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive.dart';
 
 /// Exercises the exact production wiring (setupInjector + the same Hive
-/// box name main.dart opens) end-to-end, to prove the seam that changed in
+/// box name main_common.dart opens) end-to-end, to prove the seam that changed in
 /// this step: DI resolving a real Hive box through to an actual write.
 void main() {
   late Directory tempDir;

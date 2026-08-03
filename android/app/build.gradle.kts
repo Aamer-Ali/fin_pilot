@@ -32,6 +32,41 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    buildFeatures {
+        resValues = true
+    }
+
+    flavorDimensions += "default"
+    productFlavors {
+        create("dev") {
+            dimension = "default"
+            resValue(
+                type = "string",
+                name = "app_name",
+                value = "Finpilot DEV"
+            )
+            applicationIdSuffix = ".dev"
+        }
+        create("uat") {
+            dimension = "default"
+            resValue(
+                type = "string",
+                name = "app_name",
+                value = "Finpilot UAT"
+            )
+            applicationIdSuffix = ".uat"
+        }
+        create("prod") {
+            dimension = "default"
+            resValue(
+                type = "string",
+                name = "app_name",
+                value = "Finpilot"
+            )
+        }
+    }
+
 }
 
 kotlin {

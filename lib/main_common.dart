@@ -6,8 +6,8 @@ import 'core/di/injector.dart';
 import 'features/expenses/data/models/expense_hive_model.dart';
 import 'hive_registrar.g.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void mainCommon() async {
+  // WidgetsFlutterBinding.ensureInitialized();
 
   // Opens Hive's on-device storage and teaches it how to read/write our
   // model types (registerAdapters() is generated — see hive_registrar.g.dart
