@@ -97,9 +97,7 @@ class DashboardHiveDataSource implements DashboardLocalDataSource {
     });
   }
 
-  List<RecentActivityModel> _recentActivities(
-    List<ExpenseHiveModel> expenses,
-  ) {
+  List<RecentActivityModel> _recentActivities(List<ExpenseHiveModel> expenses) {
     final sorted = [...expenses]
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
     return sorted

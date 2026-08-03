@@ -50,11 +50,7 @@ class ReceiptPicker extends StatelessWidget {
 }
 
 class _ReceiptOption extends StatelessWidget {
-  const _ReceiptOption({
-    required this.icon,
-    required this.label,
-    this.onTap,
-  });
+  const _ReceiptOption({required this.icon, required this.label, this.onTap});
 
   final IconData icon;
   final String label;

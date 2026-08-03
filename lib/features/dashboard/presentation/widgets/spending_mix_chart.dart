@@ -55,7 +55,6 @@ class SpendingMixChart extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-
               PieChart(
                 PieChartData(
                   centerSpaceRadius: 50,

@@ -4,7 +4,7 @@ import 'package:fin_pilot/features/dashboard/domain/entities/recent_activity.dar
 import 'package:fin_pilot/features/dashboard/domain/entities/trend_point.dart';
 
 /// Aggregate root for everything the home screen needs in one read.
-class   DashboardSummary extends Equatable {
+class DashboardSummary extends Equatable {
   const DashboardSummary({
     required this.totalBalance,
     required this.monthlySpending,

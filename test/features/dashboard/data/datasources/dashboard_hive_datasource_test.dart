@@ -43,10 +43,7 @@ void main() {
 
   tearDown(() async {
     await box.close();
-    await Hive.deleteBoxFromDisk(
-      'dashboard_expenses_test',
-      path: tempDir.path,
-    );
+    await Hive.deleteBoxFromDisk('dashboard_expenses_test', path: tempDir.path);
     await tempDir.delete(recursive: true);
   });
 
@@ -70,12 +67,7 @@ void main() {
         description: 'Groceries',
       ),
       'e2': expense(id: 'e2', amount: 50, category: 'Food', date: today),
-      'e3': expense(
-        id: 'e3',
-        amount: 150,
-        category: 'Transport',
-        date: today,
-      ),
+      'e3': expense(id: 'e3', amount: 150, category: 'Transport', date: today),
     });
 
     final summary = await dataSource.getDashboardSummary();
@@ -94,22 +86,20 @@ void main() {
     expect(food.percentage, 50);
   });
 
-  test('excludes expenses from a different month from monthly totals', () async {
-    final lastMonth = DateTime(today.year, today.month - 1, 15);
-    await box.putAll({
-      'e1': expense(id: 'e1', amount: 100, category: 'Food', date: today),
-      'e2': expense(
-        id: 'e2',
-        amount: 999,
-        category: 'Food',
-        date: lastMonth,
-      ),
-    });
+  test(
+    'excludes expenses from a different month from monthly totals',
+    () async {
+      final lastMonth = DateTime(today.year, today.month - 1, 15);
+      await box.putAll({
+        'e1': expense(id: 'e1', amount: 100, category: 'Food', date: today),
+        'e2': expense(id: 'e2', amount: 999, category: 'Food', date: lastMonth),
+      });
 
-    final summary = await dataSource.getDashboardSummary();
+      final summary = await dataSource.getDashboardSummary();
 
-    expect(summary.monthlySpending, 100);
-  });
+      expect(summary.monthlySpending, 100);
+    },
+  );
 
   test('recentActivities returns newest-first, capped at 5', () async {
     for (var i = 0; i < 7; i++) {

@@ -37,7 +37,10 @@ class DescriptionCard extends StatelessWidget {
             minLines: 3,
             maxLines: 3,
             style: AppTypography.bodyLg.copyWith(color: colorScheme.onSurface),
-            decoration: InputDecoration(hintText: 'What was this for?', border: InputBorder.none),
+            decoration: InputDecoration(
+              hintText: 'What was this for?',
+              border: InputBorder.none,
+            ),
           ),
         ],
       ),

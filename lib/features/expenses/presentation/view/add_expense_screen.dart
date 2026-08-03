@@ -88,15 +88,17 @@ class _AddExpenseView extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
                   child: DescriptionCard(
-                    onChanged: (value) =>
-                        context.read<AddExpenseCubit>().descriptionChanged(value),
+                    onChanged: (value) => context
+                        .read<AddExpenseCubit>()
+                        .descriptionChanged(value),
                   ),
                 ),
                 SizedBox(height: AppSpacing.lg),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
                   child: ReceiptPicker(
-                    onCameraTap: () => _pickReceipt(context, ImageSource.camera),
+                    onCameraTap: () =>
+                        _pickReceipt(context, ImageSource.camera),
                     onGalleryTap: () =>
                         _pickReceipt(context, ImageSource.gallery),
                   ),

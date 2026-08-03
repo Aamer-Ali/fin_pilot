@@ -10,8 +10,18 @@ String formatRelativeDate(DateTime date, {DateTime? now}) {
   if (difference == 1) return 'Yesterday';
 
   const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   return '${months[date.month - 1]} ${date.day}';
 }
@@ -21,8 +31,18 @@ String formatRelativeDate(DateTime date, {DateTime? now}) {
 String formatDateLabel(DateTime date, {DateTime? now}) {
   final relative = formatRelativeDate(date, now: now);
   const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   final monthDay = '${months[date.month - 1]} ${date.day}';
   return relative == 'Today' ? '$relative, $monthDay' : monthDay;

@@ -56,11 +56,14 @@ void main() {
     expect(buildCubit().isValid.value, isFalse);
   });
 
-  test('isValid becomes true once amount, description, category, and date are all set', () {
-    final cubit = buildCubit();
-    fillValidForm(cubit);
-    expect(cubit.isValid.value, isTrue);
-  });
+  test(
+    'isValid becomes true once amount, description, category, and date are all set',
+    () {
+      final cubit = buildCubit();
+      fillValidForm(cubit);
+      expect(cubit.isValid.value, isTrue);
+    },
+  );
 
   test('isValid stays false when any single field is missing', () {
     final cubit = buildCubit();

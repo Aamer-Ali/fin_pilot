@@ -27,8 +27,7 @@ class DashboardSummaryModel {
           .map((e) => TrendPointModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       insightText: json['insightText'] as String,
-      spendingChangePercent: (json['spendingChangePercent'] as num)
-          .toDouble(),
+      spendingChangePercent: (json['spendingChangePercent'] as num).toDouble(),
       recentActivities: (json['recentActivities'] as List)
           .map((e) => RecentActivityModel.fromJson(e as Map<String, dynamic>))
           .toList(),

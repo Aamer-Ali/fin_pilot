@@ -3,8 +3,18 @@ import 'package:fin_pilot/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 const _months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 /// Primary "Log Expense" submit button plus the budget-attribution caption
