@@ -55,11 +55,11 @@ jobs:
           distribution: temurin
           java-version: "17"
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build apk --release --flavor prod -t lib/main_prod.dart
       - uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-prod-release.apk
 
   build-ios:
     if: github.event_name == 'push' || github.event.pull_request.merged == true
@@ -73,7 +73,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
       - run: flutter pub get
-      - run: flutter build ipa --release --no-codesign
+      - run: flutter build ipa --release --flavor prod -t lib/main_prod.dart --no-codesign
       - uses: actions/upload-artifact@v4
         with:
           name: app-release.ipa
