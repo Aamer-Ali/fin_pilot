@@ -8,7 +8,7 @@ abstract class AppEnvironment {
 
   static Environment get environment => _environment;
 
-  static setUpEnv(Environment environment) {
+  static void setUpEnv(Environment environment) {
     switch (environment) {
       case Environment.dev:
         baseUrl = "API BASE URL FOR DEV";

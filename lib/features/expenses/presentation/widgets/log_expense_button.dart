@@ -1,21 +1,5 @@
 import 'package:fin_pilot/core/theme/app_spacing.dart';
-import 'package:fin_pilot/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
-
-const _months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 
 /// Primary "Log Expense" submit button plus the budget-attribution caption
 /// below it. UI only — [onPressed] wiring comes later.
@@ -29,9 +13,6 @@ class LogExpenseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final month = budgetMonth ?? _months[DateTime.now().month - 1];
-
     return Column(
       children: [
         SizedBox(
