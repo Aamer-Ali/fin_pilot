@@ -69,8 +69,10 @@ jobs:
           subject: FinPilot Android build ${{ github.sha }}
           to: aamer.techwork@gmail.com
           from: FinPilot CI
-          body: Attached is the Android release build for commit ${{ github.sha }}.
-          attachments: build/app/outputs/flutter-apk/app-prod-release.apk
+          body: |
+            Android release build for commit ${{ github.sha }} is ready.
+            Download it from the workflow run artifacts:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
   build-ios:
     if: github.event_name == 'push' || github.event.pull_request.merged == true
@@ -98,5 +100,7 @@ jobs:
           subject: FinPilot iOS build ${{ github.sha }}
           to: aamer.techwork@gmail.com
           from: FinPilot CI
-          body: Attached is the iOS release build for commit ${{ github.sha }}.
-          attachments: build/ios/ipa/*.ipa
+          body: |
+            iOS release build for commit ${{ github.sha }} is ready.
+            Download it from the workflow run artifacts:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
