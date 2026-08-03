@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
-    branches: [main, master]
-    types: [closed]
+    branches: [ main, master ]
+    types: [ closed ]
 
 env:
   FLUTTER_VERSION: "3.44.7"
@@ -60,6 +60,15 @@ jobs:
         with:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-prod-release.apk
+      - uses: dawidd6/action-send-mail@v3
+        with:
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: FinPilot Android build ${{ github.sha }}
+          to: aamer.techwork@gmail.com
+          from: FinPilot CI
+          body: Attached is the Android release build for commit ${{ github.sha }}.
+          attachments: build/app/outputs/flutter-apk/app-prod-release.apk
 
   build-ios:
     if: github.event_name == 'push' || github.event.pull_request.merged == true
@@ -78,3 +87,12 @@ jobs:
         with:
           name: app-release.ipa
           path: build/ios/ipa/*.ipa
+      - uses: dawidd6/action-send-mail@v3
+        with:
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: FinPilot iOS build ${{ github.sha }}
+          to: aamer.techwork@gmail.com
+          from: FinPilot CI
+          body: Attached is the iOS release build for commit ${{ github.sha }}.
+          attachments: build/ios/ipa/*.ipa
