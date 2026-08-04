@@ -1,11 +1,35 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/bloc/auth_bloc.dart';
+import '../../features/auth/presentation/bloc/auth_state.dart';
+import '../../features/auth/presentation/view/login_screen.dart';
+import '../../features/auth/presentation/view/signup_screen.dart';
 import '../../features/dashboard/presentation/view/home_screen.dart';
 import '../../features/expenses/presentation/view/add_expense_screen.dart';
 import '../../features/insights/presentation/view/insights_screen.dart';
 import '../../features/profile/presentation/view/profile_screen.dart';
 import '../../features/subscriptions/presentation/view/subscriptions_screen.dart';
+import '../di/injector.dart';
+
+/// Turns a [Stream] into a [Listenable] so go_router's [GoRouter.refreshListenable]
+/// re-evaluates `redirect` whenever the auth state changes.
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
 
 /// App-wide navigation config.
 ///
@@ -20,8 +44,28 @@ import '../../features/subscriptions/presentation/view/subscriptions_screen.dart
 ///
 final scaffoldKey = GlobalKey<ScaffoldState>();
 final appRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/login',
+  refreshListenable: GoRouterRefreshStream(getIt<AuthBloc>().stream),
+  redirect: (context, state) {
+    final authState = getIt<AuthBloc>().state;
+    // Only bypass redirect while a login/signup submission is in flight, so
+    // the login/signup screen can show its own loading state uninterrupted.
+    if (authState is AuthLoading) return null;
+
+    final isAuthRoute =
+        state.matchedLocation == '/login' || state.matchedLocation == '/signup';
+    final isAuthenticated = authState is AuthAuthenticated;
+
+    // AuthInitial (auth status still being checked) is treated the same as
+    // unauthenticated here, so the dashboard can never render before the
+    // user has actually signed in or signed up.
+    if (!isAuthenticated && !isAuthRoute) return '/login';
+    if (isAuthenticated && isAuthRoute) return '/home';
+    return null;
+  },
   routes: [
+    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+    GoRoute(path: '/signup', builder: (context, state) => const SignupScreen()),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           _RootScaffold(navigationShell: navigationShell),

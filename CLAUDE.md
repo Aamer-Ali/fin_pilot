@@ -304,51 +304,9 @@ before `runApp()`.
 
 ## 6. Firestore Schema (build this in Phase 2, after local works)
 
-```
-users/{uid}
-  displayName, email, photoUrl
-  subscriptionPlan: "premium" | "free"
-  linkedAccounts: [string]
-  preferences: { biometricLock: bool, notificationsEnabled: bool, darkMode: bool }
-  createdAt, updatedAt
-
-users/{uid}/expenses/{expenseId}
-  amount: number
-  description: string
-  category: string
-  receiptUrl: string?
-  date: Timestamp
-  createdAt: Timestamp
-
-users/{uid}/subscriptions/{subId}
-  name: string
-  amount: number
-  billingCycle: "monthly" | "yearly"
-  nextDueDate: Timestamp
-  category: string
-  reminderEnabled: bool
-  createdAt: Timestamp
-
-users/{uid}/insights/{weekId}        # "2026-W29" — written by Cloud Function only
-  summaryText: string
-  periodStart, periodEnd: Timestamp
-  dailyTotals: [{day, amount}]
-  topCategories: [{name, amount, transactionCount, changePercent}]
-  nextWeekTip: string
-  generatedAt: Timestamp
-
-users/{uid}/budgets/{monthId}        # "2026-07" — rollup, written by Cloud Function or client
-  totalBudget: number
-  totalSpent: number
-  categoryBreakdown: { [category: string]: number }
-```
-
-**Security rule baseline:**
-```
-match /users/{uid}/{document=**} {
-  allow read, write: if request.auth != null && request.auth.uid == uid;
-}
-```
+See the `firestore-schema` skill for the full document schema (users/{uid}
+and its expenses, subscriptions, insights, and budgets subcollections) and
+the security rule baseline.
 
 ---
 

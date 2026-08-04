@@ -11,17 +11,17 @@ abstract class AppEnvironment {
   static void setUpEnv(Environment environment) {
     switch (environment) {
       case Environment.dev:
-        baseUrl = "API BASE URL FOR DEV";
+        baseUrl = "http://localhost:3000";
         environmentName = "DEV";
         break;
 
       case Environment.uat:
-        baseUrl = "API BASE URL FOR UAT";
+        baseUrl = "http://localhost:3000";
         environmentName = "UAT";
         break;
 
       case Environment.prod:
-        baseUrl = "API BASE URL FOR PROD";
+        baseUrl = "http://localhost:3000";
         environmentName = "PROD";
         break;
     }
