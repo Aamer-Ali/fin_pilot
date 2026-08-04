@@ -25,6 +25,11 @@ import 'package:fin_pilot/features/expenses/data/repositories/expense_repository
 import 'package:fin_pilot/features/expenses/domain/repositories/expense_repository.dart';
 import 'package:fin_pilot/features/expenses/domain/usecases/add_expense.dart';
 import 'package:fin_pilot/features/expenses/presentation/cubit/add_expense_cubit.dart';
+import 'package:fin_pilot/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:fin_pilot/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:fin_pilot/features/profile/domain/repositories/profile_repository.dart';
+import 'package:fin_pilot/features/profile/domain/usecases/get_user_profile.dart';
+import 'package:fin_pilot/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:hive_ce/hive.dart';
 
 final getIt = GetIt.instance;
@@ -35,6 +40,7 @@ void setupInjector() {
   _initAuth();
   _initDashboard();
   _initExpenses();
+  _initProfile();
 }
 
 void _initAuth() {
@@ -83,6 +89,17 @@ void _initDashboard() {
   );
   getIt.registerLazySingleton(() => GetDashboardSummary(getIt()));
   getIt.registerFactory(() => DashboardCubit(getIt()));
+}
+
+void _initProfile() {
+  // Reuses the auth feature's Dio singleton — it's already wired with the
+  // bearer-token interceptor via AuthLocalDataSource.getAccessToken.
+  getIt.registerLazySingleton(() => ProfileRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton(() => GetUserProfileUseCase(getIt()));
+  getIt.registerFactory(() => ProfileCubit(getIt()));
 }
 
 void _initExpenses() {
